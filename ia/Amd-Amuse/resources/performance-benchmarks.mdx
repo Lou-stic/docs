@@ -1,0 +1,143 @@
+---
+title: "Benchmarks et mesures de performance"
+description: "Résultats de tests indépendants et internes : débit, latence, consommation, efficacité énergétique et comportement thermique"
+---
+
+# Benchmarks et mesures de performance
+
+Cette page rassemble les données de performance obtenues sur différentes configurations, issues de tests internes AMD et d’études indépendantes (notamment l’article arXiv sur l’accélération NPU et le benchmark multi‑plateformes LLM).
+
+## Génération d’images – Modèles AMD optimisés
+
+Les résultats ci-dessous ont été mesurés par AMD avec Amuse 3.0 et le driver Adrenalin 24.30.31.05 (avril 2025). Prompt utilisé : *“Craft an image of a cozy fireplace with crackling flames, flickering candles, and a pile of cozy blankets nearby”*.
+
+### Sur Radeon RX 9070 XT (RDNA 4, 16 Go VRAM)
+
+| Modèle | Baseline (non optimisé) | Optimisé (`_amdgpu`) | Accélération |
+|--------|-------------------------|----------------------|---------------|
+| Stable Diffusion 1.5 | 1,0× (référence) | **4,3×** plus rapide | +330% |
+| SDXL 1.0 | 1,0× | **3,1×** | +210% |
+| SD 3.5 Large | 1,0× | **3,3×** | +230% |
+| SD 3.5 Medium | 1,0× | **2,9×** | +190% |
+
+<Info>
+  L’optimisation inclut flash attention, élagage des poids et fusion d’opérateurs. La mémoire VRAM utilisée est réduite jusqu’à 50% sur SD 3.5 Medium.
+</Info>
+
+### Sur Ryzen AI 9 HX 370 (Strix Point, 32 Go RAM)
+
+| Modèle | Baseline | Optimisé (`_amdgpu`) | Gain |
+|--------|----------|----------------------|------|
+| SD 1.5 | 1,0× | **+50%** | 1,5× plus rapide |
+| SDXL 1.0 | 1,0× | **+40%** | 1,4× |
+| SD 3.5 Large Turbo | Non exécutable | **uniquement possible** | — |
+
+### Sur Ryzen AI Max+ 395 (Strix Halo, 64 Go RAM)
+
+| Modèle | Accélération |
+|--------|--------------|
+| SD 3.5 Large | **3,3×** |
+| SD 1.5 | **+70%** |
+| SDXL 1.0 | **+40%** |
+
+## LLM – Inférence et fine‑tuning (étude indépendante)
+
+L’étude arXiv *“Unlocking the AMD Neural Processing Unit for ML Training on the Client”* (Rösti & Franz, 2025) a comparé l’exécution de GPT‑2 (124M) sur CPU vs CPU+NPU. Matériel : Asus Vivobook Pro 15, Ryzen 9 7940HS, NPU XDNA.
+
+| Opération | CPU seul | CPU+NPU | Speedup |
+|-----------|----------|---------|---------|
+| GEMM forward | 1,0× | **3,1×** | +210% |
+| GEMM backward | 1,0× | **2,8×** | +180% |
+| End‑to‑end (secteur) | 95 GFLOP/s | **145 GFLOP/s** | +53% |
+| End‑to‑end (batterie) | 95 GFLOP/s | **111 GFLOP/s** | +17% |
+| Efficacité énergétique (batterie) | 2,7 GFLOP/Ws | **3,8 GFLOP/Ws** | +40% |
+
+<Info>
+  L’accélération provient d’un kernel GEMM maison tirant parti des AI Engines du NPU. Le reste du modèle (attention, softmax) reste sur CPU.
+</Info>
+
+## Comparaison multi‑plateformes – LLM 1.5B
+
+Benchmark de *“LLM Inference at the Edge”* (Tummalapalli et al., 2025) sur Qwen 2.5 1.5B (4‑bit). 20 itérations, prompt de 258 tokens.
+
+| Plateforme | Throughput (tok/s) | Puissance (W) | Efficacité (mJ/token) |
+|------------|--------------------|---------------|----------------------|
+| RTX 4050 laptop (batterie) | 131,7 | 34,1 | 297 |
+| iPhone 16 Pro (état Normal) | 37,6 | ~8 (estimé) | — |
+| iPhone 16 Pro (état Hot) | 22,6 | ~8 | — |
+| Samsung S24 Ultra | 9,93 | — | — |
+| RPi 5 + Hailo‑10H NPU | 6,91 | 1,87 | 270 |
+
+<Warning>
+  L’iPhone 16 Pro perd 44% de débit après 2 itérations et reste en état “Hot” 65% du temps. Le Samsung S24 Ultra voit sa fréquence GPU bloquée après 6 itérations (OS enforce).
+</Warning>
+
+## Efficacité énergétique et consommation
+
+### Sur batterie (comparaison NPU vs GPU)
+
+| Plateforme | Throughput (tok/s) | Puissance (W) | W par tok/s | Énergie par token (mJ) |
+|------------|--------------------|---------------|-------------|------------------------|
+| RTX 4050 | 131,7 | 34,1 | 0,259 | 297 |
+| Hailo-10H (RPi 5) | 6,91 | 1,87 | 0,271 | 270 |
+
+<Info>
+  Les deux plates-formes ont une efficacité énergétique comparable (~0,26‑0,27 W par tok/s), malgré une différence de débit de 19×. Le NPU est idéal pour des usages toujours actifs et peu gourmands.
+</Info>
+
+### Consommation électrique typique par composant
+
+| Composant | Puissance (W) |
+|-----------|---------------|
+| Ryzen AI 300 (NPU seul) | 5-10 |
+| Radeon RX 7600 (génération image) | 60-80 |
+| Radeon RX 9070 XT (génération image) | 150-200 |
+| RTX 4050 laptop (batterie) | 34 (plafonné) |
+| RPi 5 + Hailo-10H (système complet) | 1,9 |
+
+## Comportement thermique – smartphones sous charge soutenue
+
+Test de 20 itérations consécutives (258‑token prompt) :
+
+- **iPhone 16 Pro** : débit passe de 40,35 → 22,56 tok/s (-44%) après 2 itérations. État “Hot” de l’itération 8 à 20.
+- **Samsung S24 Ultra** : arrêt brutal à l’itération 6, fréquence GPU bloquée à 231 MHz, température GPU 78,3°C.
+
+<Warning>
+  Pour des usages intensifs et continus (agent IA toujours actif), un NPU dédié ou un GPU refroidi est nécessaire. Les smartphones sont adaptés aux requêtes intermittentes (5‑10 par heure).
+</Warning>
+
+## Détail des opérations GPT‑2 (124M)
+
+Flops par époque d’entraînement (197 GFLOP). Répartition :
+
+| Opération | Forward (MFLOP) | Backward (MFLOP) |
+|-----------|-----------------|------------------|
+| GEMM (matmul) | 39 561 | 39 561 |
+| Attention | 1 812 | 3 625 |
+| Softmax | 0,4 | — |
+| Layer norm | 3,5 | 7,1 |
+| Autres | 25,8 | 51,6 |
+
+Les GEMM représentent plus de 80% du temps total sur CPU.
+
+## Résumé des accélérations mesurées
+
+| Scénario | Configuration | Gain |
+|----------|---------------|------|
+| SD 1.5 | Radeon RX 9070 XT + modèle `_amdgpu` | 4,3× |
+| GPT‑2 GEMM | NPU XDNA (Ryzen 9) | 2,8‑3,1× |
+| GPT‑2 end‑to‑end | NPU XDNA (secteur) | 1,7× |
+| GPT‑2 efficacité énergétique | NPU XDNA (batterie) | +40% |
+| LLM 1.5B (tok/s) | RTX 4050 vs Hailo‑10H | 19× (débit) |
+
+## Prochaines évolutions attendues
+
+- **Modèles vidéo** (WAN, LTX‑2) : benchmarks dès disponibilité.
+- **Support LoRA** : impact sur performance à évaluer.
+- **AMD RDNA 4 avec parcimonie 4:2** : doublement théorique des opérations matricielles.
+
+Les performances exactes dépendent de votre matériel, du driver, de la température ambiante et du modèle utilisé. Pour des mesures sur votre propre configuration, utilisez les outils intégrés d’Amuse (Settings → System Info) ou des outils tiers (GPU-Z, HWMonitor).
+
+---
+
+**Des questions sur un benchmark spécifique ?** L’assistant IA Mintlify peut vous fournir des détails supplémentaires.

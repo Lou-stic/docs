@@ -1,0 +1,145 @@
+---
+title: "Installer et configurer Amuse"
+description: "Guide complet d’installation d’Amuse sur PC Windows, avec ou sans matériel AMD, de zéro à la première image."
+---
+
+# Installation d’Amuse
+
+Ce guide vous accompagne pas à pas pour installer **Amuse** sur votre PC Windows, configurer votre matériel (AMD ou non) et générer votre première image ou vidéo.
+
+> 💡 **Vous êtes débutant ?** Suivez les étapes dans l’ordre. L’assistant IA Mintlify peut répondre à vos questions à chaque étape.
+
+## Prérequis matériels
+
+Amuse fonctionne sur **n’importe quel PC Windows**, mais les performances varient fortement selon votre configuration. Voici les recommandations officielles d’AMD :
+
+| Configuration | Processeur | RAM | Stockage | Accélération |
+|---------------|------------|-----|----------|---------------|
+| **Minimale** (CPU only) | Intel ou AMD (4 cœurs+) | 8 Go | 20 Go libre | Très lente, déconseillée |
+| **Recommandée AMD Ryzen AI** | Ryzen AI 300 ou 8040 series | 24–32 Go | 32 Go libre | NPU XDNA + GPU Radeon intégré |
+| **Recommandée Radeon GPU** | n’importe quel CPU + Radeon RX 7000/9000 | 16 Go | 32 Go libre | GPU EP (ROCm / ONNX) |
+| **Optimale** | Ryzen AI Max+ 395 ou Radeon RX 9070 XT | 32–64 Go | 64 Go libre | NPU + GPU, jusqu’à 4,3× plus rapide |
+
+<Info>
+  **Stockage** : les modèles pèsent entre 4 Go (SDXL Turbo) et 12 Go (SD 3.5 Large). Prévoyez au moins 50 Go si vous voulez plusieurs modèles.
+</Info>
+
+## Drivers et logiciels système
+
+Avant d’installer Amuse, assurez-vous que vos pilotes sont à jour.
+
+### Pour les GPU AMD Radeon
+
+- Téléchargez **AMD Software: Adrenalin Edition** (version 24.30.31.05 ou ultérieure)  
+  [Lien direct du driver recommandé](https://www.amd.com/en/resources/support-articles/release-notes/RN-WIN-24-30-31-05-PREVIEW-AMUSE-3-0-ONNX.html)
+- Pendant l’installation, **cochez l’option “AI Bundle”** – cela installera automatiquement PyTorch, ComfyUI, Ollama et les dépendances ROCm pour Windows.
+
+### Pour les processeurs Ryzen AI (NPU XDNA)
+
+- Le driver NPU est fourni par le fabricant de votre PC (OEM).  
+- Vérifiez que vous avez la dernière mise à jour du **MCDM** (MicroCode Download Manager) et du **NPU driver**.  
+- Sur les Ryzen 8040 series, une mise à jour OEM est **obligatoire** pour la super‑résolution XDNA.
+
+<Warning>
+  Si vous n’avez pas de matériel AMD, Amuse fonctionnera sur CPU (très lent) ou sur GPU Intel/NVIDIA (via DirectML, sans les optimisations AMD). Pour une expérience correcte, un GPU AMD Radeon ou un NPU Ryzen AI est vivement conseillé.
+</Warning>
+
+## Téléchargement et installation d’Amuse
+
+1. Rendez-vous sur le site officiel : [**amuse-ai.com**](https://www.amuse-ai.com)
+2. Cliquez sur **“Download Amuse”** – le fichier `Amuse_vX.X.X.exe` est téléchargé.
+3. Lancez l’installateur (aucune option particulière, il ne nécessite pas de privilèges administrateur).
+4. Suivez les instructions à l’écran. L’installation ne prend qu’une minute.
+5. À la fin, **Amuse se lance automatiquement**.
+
+<Info>
+  Amuse est **portable** : vous pouvez l’installer sur un disque externe. Aucune clé de registre ni dépendance système n’est modifiée.
+</Info>
+
+## Premier lancement : configuration automatique
+
+Au premier démarrage, Amuse détecte automatiquement votre matériel.
+
+- Si un **NPU XDNA** est trouvé, l’option **“AMD XDNA Super Resolution”** sera activée par défaut.
+- Si un **GPU Radeon** est détecté, le backend **AMD GPU EP** sera sélectionné (nécessite le driver avec AI Bundle).
+- Sinon, Amuse utilisera le **CPU** (mode dégradé).
+
+<Accordion title="Que faire si le NPU ou GPU n’est pas reconnu ?">
+  1. Vérifiez que vos drivers sont à jour (voir section précédente).  
+  2. Redémarrez votre PC.  
+  3. Dans Amuse, allez dans **Paramètres → Exécution** et forcez le périphérique (AMDGPU, NPU, CPU).  
+  4. Si toujours absent, réinstallez le driver AMD avec l’option AI Bundle.
+</Accordion>
+
+## Installer et optimiser un premier modèle
+
+Amuse a besoin d’un modèle pour générer des images. Le plus simple est d’utiliser le **Mode EZ** :
+
+1. Dans l’onglet **“Generate”**, écrivez un prompt (ex: “a cat in space”).
+2. Cliquez sur **“Generate”**.
+3. Amuse vous proposera automatiquement de télécharger le modèle recommandé (généralement **SDXL Turbo**).
+4. Acceptez – le modèle (environ 4–6 Go) est téléchargé.
+5. Une fois téléchargé, une **optimisation unique** est lancée (cela peut prendre plusieurs minutes, surtout sur CPU).
+6. La génération s’exécute ensuite.
+
+<Info>
+  **Pour les GPU Radeon avec AI Bundle** : l’optimisation utilise Microsoft Olive + AMD optimizer pour convertir le modèle en ONNX avec flash‑attention et élagage des poids. Cela double presque la vitesse.
+</Info>
+
+<Warning>
+  Si l’optimisation échoue (message “out of memory”), réduisez la résolution ou passez en mode “Fast” (Performance slider). Sur les systèmes avec peu de RAM (8 Go), préférez les modèles légers comme **SDXL Turbo** ou **Dream Shaper LCM**.
+</Warning>
+
+## Gestion avancée des modèles (Mode Expert)
+
+Pour les utilisateurs plus expérimentés ou ceux qui veulent des modèles spécifiques :
+
+1. Cliquez sur **“Expert Mode”** (en bas à gauche).
+2. Allez dans **“Model Manager”**.
+3. Vous pouvez :
+   - **Parcourir la bibliothèque intégrée** (plus de 100 modèles, dont Flux.1, SD 3.5 Large, Realistic Vision…)
+   - **Importer un modèle** depuis Hugging Face (format ONNX ou GGUF) – exemple : `amd/sd3.5_large_amdgpu`
+   - **Supprimer / mettre à jour** les modèles existants
+4. Pour chaque modèle, vérifiez les **prérequis** (RAM, VRAM, espace disque) avant de l’installer.
+
+<Accordion title="Où trouver des modèles AMD optimisés ?">
+  Rendez-vous sur la [collection Hugging Face d’AMD](https://huggingface.co/collections/amd/amdgpu-onnx-675e6af32858d6e965eea427). Tous les modèles avec le suffixe `_amdgpu` sont spécialement optimisés pour les GPU Radeon et NPU Ryzen AI.
+</Accordion>
+
+## Dépannage des problèmes courants
+
+| Problème | Cause probable | Solution |
+|----------|----------------|----------|
+| L’application ne détecte pas mon GPU AMD | Driver obsolète ou AI Bundle non installé | Installez le dernier driver Adrenalin avec l’option AI Bundle |
+| “AMDGPU EP” n’apparaît pas dans le menu | Ancienne version d’Amuse | Désinstallez complètement Amuse, puis installez la version ≥ 3.2.0 |
+| L’optimisation du modèle prend des heures | CPU seul ou RAM insuffisante | Passez en mode “Fast” (Performance slider) ou ajoutez de la RAM |
+| Erreur “Out of memory” pendant la génération | Modèle trop gros pour votre VRAM/RAM | Baissez la résolution (ex: 512×512) ou utilisez un modèle plus léger (SDXL Turbo) |
+| La super‑résolution XDNA est grisée | NPU non reconnu ou driver obsolète | Mettez à jour le driver NPU via Windows Update / OEM |
+| L’image générée est floue ou déformée | Prompt trop vague ou steps insuffisants | Augmentez le nombre de “steps” dans les paramètres avancés ou utilisez un modèle plus récent (SD 3.5) |
+
+## Pour aller plus loin : utiliser l’assistant IA Mintlify
+
+Une fois cette page en ligne, l’assistant IA de Mintlify (si vous l’avez activé) pourra **répondre automatiquement** aux questions des visiteurs en se basant sur son contenu. Exemples de questions qu’il pourra traiter :
+
+- *“Quels sont les prérequis pour Amuse sur un Ryzen AI 300 ?”*
+- *“Comment installer le driver AMD avec AI Bundle ?”*
+- *“Pourquoi mon modèle ne s’optimise pas ?”*
+- *“Où trouver des modèles optimisés pour ma Radeon RX 7600 ?”*
+
+Il suffit que l’assistant soit configuré pour lire l’ensemble de votre documentation (y compris cette page). Vous pouvez activer l’assistant dans les paramètres Mintlify (onglet **AI**).
+
+## Résumé des étapes pour un débutant
+
+1. **Vérifier son matériel** : PC Windows, de préférence avec GPU Radeon ou Ryzen AI.
+2. **Installer le dernier driver AMD Adrenalin** (cocher AI Bundle).
+3. **Télécharger et lancer Amuse** depuis [amuse-ai.com](https://www.amuse-ai.com).
+4. **Accepter le téléchargement du premier modèle** (SDXL Turbo).
+5. **Attendre l’optimisation** (une fois, ensuite c’est rapide).
+6. **Écrire un prompt simple** et cliquer sur “Generate”.
+7. **Sauvegarder ses images** (bouton “Save”).
+
+Dès que vous maîtrisez ces bases, explorez le Mode Expert, les filtres AI, la génération vidéo et les modèles plus puissants.
+
+---
+
+**Prochaine étape suggérée** : [Guide d’utilisation avancée – Mode Expert et réglages](/ia/Amd-Amuse/guides/advanced-mode)
