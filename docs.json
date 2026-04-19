@@ -34,24 +34,13 @@
                 "pages": [
                   "ia/Amd-Amuse/guides/prompt-engineering",
                   "ia/Amd-Amuse/guides/image-generation",
-                  "ia/Amd-Amuse/guides/ai-filters",
-                  "ia/Amd-Amuse/guides/video-diffusion",
-                  "ia/Amd-Amuse/guides/advanced-mode"
-                ]
-              },
-              {
-                "group": "Ressources",
-                "pages": [
-                  "ia/Amd-Amuse/resources/hardware-compatibility",
-                  "ia/Amd-Amuse/resources/xdna-npu-architecture",
-                  "ia/Amd-Amuse/resources/amd-optimized-models",
-                  "ia/Amd-Amuse/resources/performance-benchmarks",
-                  "ia/Amd-Amuse/resources/faq"
+                  "ia/Amd-Amuse/guides/video-difusion",
+                  "ia/Amd-Amuse/guides/memory-os-ia",
+                  "ia/Amd-Amuse/Claude-Cloud-Gratuit-Open-Router"
                 ]
               }
             ]
-          },
-          "ia/memory-os-ia-2026"
+          }
         ]
       }
     ]
