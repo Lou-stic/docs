@@ -9,9 +9,7 @@
     "groups": [
       {
         "group": "Accueil",
-        "pages": [
-          "index"
-        ]
+        "pages": ["index"]
       },
       {
         "group": "Guides IA",
