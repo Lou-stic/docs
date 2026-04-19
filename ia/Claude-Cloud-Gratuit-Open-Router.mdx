@@ -1,0 +1,99 @@
+---
+title: "Claude Code Gratuit via Open Router"
+---
+---
+Guide complet pour configurer Claude Code avec des modèles gratuits en utilisant Open Router comme fournisseur tiers.
+---
+
+---
+
+## Introduction
+
+Claude Code est un outil de codage agentique qui fonctionne normalement via un abonnement payant Anthropic. Cependant, le CLI terminal et l'extension VS Code prennent en charge des fournisseurs tiers, ce qui permet d'utiliser des modèles d'intelligence artificielle gratuits via la plateforme Open Router.
+
+Cette méthode permet de dissocier l'outil Claude Code du modèle Claude d'Anthropic pour utiliser n'importe quel autre modèle disponible sur le marché.
+
+---
+
+## Étape 1 : Configuration sur Open Router
+
+Open Router fait office de plateforme centrale donnant accès à de nombreux modèles, dont certains sont totalement gratuits.
+
+1. **Créer un compte** sur [Open Router](https://openrouter.ai/).
+2. **Générer une clé API** :
+   * Accédez à votre profil en haut à droite, puis allez dans **Settings**.
+   * Cliquez sur **API Keys** et créez une nouvelle clé (par exemple nommée "Claude Code").
+   * Copiez cette clé car elle sera nécessaire pour la configuration finale.
+3. **Sélectionner un modèle gratuit** :
+   * Dans la liste des modèles, utilisez le filtre "Free" pour identifier les modèles utilisables sans frais.
+   * Des modèles comme "Nvidia Neotron Free" peuvent être utilisés gratuitement à outrance.
+   * Notez le nom technique du modèle choisi (ex: `nvidia/llama-3.1-nemotron-70b-instruct`).
+
+---
+
+## Étape 2 : Installation de Claude Code
+
+Pour utiliser cette méthode, vous devez d'abord installer l'outil sur votre machine via le terminal.
+
+**Sur macOS, Linux ou WSL :**
+Utilisez Homebrew avec la commande suivante :
+```bash
+brew install claude-code
+```
+
+**Sur Windows :**
+Utilisez WinGet dans PowerShell ou CMD :
+```powershell
+winget install Anthropic.ClaudeCode
+```
+
+<Callout type="warning" title="Prérequis Windows">
+  L'installation native sous Windows nécessite l'installation préalable de Git pour Windows.
+</Callout>
+
+---
+
+## Étape 3 : Configuration du fournisseur tiers
+
+Une fois installé, vous devez configurer Claude Code pour qu'il communique avec Open Router au lieu des serveurs d'Anthropic.
+
+### Création des fichiers de réglages
+
+1. Rendez-vous dans le dossier de votre projet de développement.
+2. Repérez ou créez un dossier nommé `.claude` à la racine de votre projet.
+3. À l'intérieur de ce dossier, créez un fichier nommé `settings.json`.
+
+### Paramétrage du fichier JSON
+
+Dans le fichier `settings.json`, vous devez insérer une structure de code incluant les éléments suivants :
+
+* **Base URL** : L'URL pointant vers l'API d'Open Router.
+* **API Key** : La clé que vous avez générée à l'étape 1.
+* **Modèle** : Le nom exact du modèle gratuit sélectionné sur Open Router.
+* **Activation tiers** : Il est impératif d'activer l'option permettant à Claude Code d'utiliser des modèles non-Anthropic en passant le paramètre dédié à `true`.
+
+Voici à quoi doit ressembler votre fichier `settings.json` :
+
+```json
+{
+  "apiBaseUrl": "https://openrouter.ai/api/v1",
+  "apiKey": "VOTRE_CLE_API_OPEN_ROUTER_ICI",
+  "model": "nvidia/llama-3.1-nemotron-70b-instruct",
+  "enableThirdPartyModels": true
+}
+```
+*(Remplacez `VOTRE_CLE_API_OPEN_ROUTER_ICI` par votre vraie clé et le modèle par celui de votre choix).*
+
+---
+
+## Étape 4 : Utilisation et commandes utiles
+
+Après avoir configuré le fichier, vous pouvez lancer Claude Code normalement dans votre terminal.
+
+* **Vérification du modèle** : Tapez la commande `/model` dans l'interface de Claude Code pour confirmer que le modèle gratuit d'Open Router (comme Nvidia Neotron) est bien actif.
+* **Changement de modèle** : Vous pouvez changer de modèle à tout moment en modifiant le fichier `settings.json` ou via la commande `/model` si vous souhaitez tester des modèles comme Google Gemma (très peu cher et performant).
+
+<Callout type="info" title="Contrôle des coûts">
+  Si vous utilisez des modèles payants sur Open Router, vous pouvez définir une limite de crédit (par exemple 5 dollars) dans les paramètres de votre clé API pour éviter tout dépassement.
+</Callout>
+```
