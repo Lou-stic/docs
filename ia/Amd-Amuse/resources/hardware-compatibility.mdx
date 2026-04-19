@@ -1,0 +1,154 @@
+---
+title: "Compatibilité matérielle et prérequis système"
+description: "Quels processeurs, GPU et configurations sont nécessaires pour faire tourner Amuse dans de bonnes conditions"
+---
+
+# Compatibilité matérielle
+
+Amuse fonctionne sur tout PC Windows récent, mais les performances varient considérablement selon votre matériel. Ce guide vous aide à évaluer votre configuration et à choisir les options les mieux adaptées.
+
+## Configuration minimale (dépréciée)
+
+**Déconseillée pour une utilisation réelle** – la génération d’une seule image peut prendre plusieurs minutes.
+
+| Composant | Exigence |
+|-----------|----------|
+| CPU | Intel ou AMD 4 cœurs (≥ 2,5 GHz) |
+| RAM | 8 Go |
+| Stockage | 20 Go libres |
+| GPU | Aucun (utilisation du CPU) |
+| OS | Windows 10/11 64-bit |
+
+<Warning>
+  Avec cette configuration, seuls les modèles très légers (SDXL Turbo en mode Fast) sont utilisables. La génération vidéo est impossible.
+</Warning>
+
+## Configuration recommandée (bonne expérience)
+
+**Pour un usage courant (génération d’images en moins de 30 secondes).**
+
+### Avec GPU Radeon (performance optimale)
+
+| Composant | Recommandation |
+|-----------|----------------|
+| CPU | Intel Core i5 / AMD Ryzen 5 (≥ 6 cœurs) |
+| RAM | 16 Go |
+| GPU | Radeon RX 7600 XT ou supérieure (8 Go VRAM minimum) |
+| Stockage | 50 Go libres (SSD) |
+| Driver | Adrenalin 24.30.31.05+ avec AI Bundle |
+
+### Avec Ryzen AI (portable économique)
+
+| Composant | Recommandation |
+|-----------|----------------|
+| CPU | AMD Ryzen AI 300 series (ex: HX 370) |
+| RAM | 24 Go |
+| NPU | XDNA intégré (automatiquement utilisé) |
+| Stockage | 50 Go libres |
+| Driver | Driver NPU OEM à jour (fabricant) |
+
+## Configuration optimale (performances maximales)
+
+**Idéal pour les professionnels et les créateurs exigeants.**
+
+### Desktop Radeon RX 9000 series
+
+| Composant | Recommandation |
+|-----------|----------------|
+| CPU | Intel Core i9 / AMD Ryzen 9 |
+| RAM | 32 Go ou plus |
+| GPU | Radeon RX 9070 XT (16 Go VRAM) ou RX 7900 XTX |
+| Stockage | SSD NVMe, 100 Go libres |
+| Modèles | Utiliser les versions `_amdgpu` pour accélération jusqu’à 4,3× |
+
+### Laptop Ryzen AI Max (Strix Halo)
+
+| Composant | Recommandation |
+|-----------|----------------|
+| CPU | AMD Ryzen AI Max+ 395 |
+| RAM | 64 Go (dont 48 Go allouables au GPU) |
+| NPU | XDNA 2 (deuxième génération) |
+| Stockage | SSD 1 To+ |
+
+## Cartes graphiques Radeon supportées
+
+### Séries recommandées
+
+- **Radeon RX 7000 series** (RDNA 3) : RX 7600, 7700, 7800, 7900.
+- **Radeon RX 9000 series** (RDNA 4) : RX 9070, 9070 XT (meilleures performances).
+- **Radeon PRO** (certaines, via drivers spéciaux).
+
+<Info>
+  Les cartes plus anciennes (RX 6000, 5000) fonctionnent mais sans les accélérations WMMA (donc plus lentes). Le support officiel n’est pas garanti.
+</Info>
+
+### Mémoire VRAM minimale par usage
+
+| Usage | VRAM recommandée |
+|-------|------------------|
+| SD 1.5 / SDXL Turbo | 6 Go |
+| SDXL 1.0 | 8 Go |
+| SD 3.5 Medium | 10 Go |
+| SD 3.5 Large | 12 Go |
+| Flux.1 | 16 Go |
+| Génération vidéo (24 frames) | 8 Go |
+| Génération vidéo (96 frames) | 16 Go |
+
+<Warning>
+  Sur les GPU avec moins de VRAM, réduisez la résolution (512×512) et utilisez les modèles `_amdgpu` qui consomment moins.
+</Warning>
+
+## Processeurs Ryzen AI supportés
+
+### Première génération (XDNA)
+
+- **Ryzen 7040 series** (Phoenix) : 7040U, 7040H, 7045HX (sauf certains modèles d’entrée de gamme).
+- **Ryzen 8040 series** (Hawk Point) : nécessite une mise à jour OEM pour la super‑résolution XDNA.
+
+### Deuxième génération (XDNA 2)
+
+- **Ryzen AI 300 series** (Strix Point) : AI 9 HX 370, AI 9 365.
+- **Ryzen AI Max series** (Strix Halo) : AI Max+ 395, AI Max 390.
+
+<Info>
+  Le NPU n’est utilisable que pour l’inférence (pas pour l’entraînement) et pour la super‑résolution XDNA. Pour la génération d’images classique, le GPU Radeon intégré est souvent plus rapide.
+</Info>
+
+## Autres composants (RAM, stockage)
+
+- **RAM** : plus vous en avez, plus vous pouvez charger de gros modèles. 16 Go est un minimum, 32 Go confortable.
+- **Stockage** : les modèles pèsent entre 4 Go (SDXL Turbo) et 12 Go (SD 3.5 Large). Prévoyez 50-100 Go si vous installez plusieurs modèles. Un SSD est vivement conseillé.
+
+## Vérifier votre configuration
+
+Dans Amuse, allez dans **Settings** → **System Info**. Vous y verrez :
+
+- CPU, RAM, GPU détectés.
+- Disponibilité du NPU.
+- Backends supportés (ROCm, DirectML, CPU).
+- Espace disque libre.
+
+## Dépannage des problèmes de compatibilité
+
+| Problème | Solution |
+|----------|----------|
+| Le GPU Radeon n’est pas utilisé | Vérifiez que vous avez installé le driver avec l’option **AI Bundle**. Dans Amuse, forcez le périphérique “AMDGPU” dans les paramètres. |
+| Le NPU n’est pas détecté | Sur Ryzen 8040, installez la mise à jour OEM. Sur Ryzen AI 300, le driver devrait être présent. Redémarrez. |
+| Erreur “ROCmExecutionProvider not found” | Le driver AMD avec AI Bundle n’est pas installé. Téléchargez la version recommandée sur le site AMD. |
+| Performances décevantes sur Radeon RX 7000 | Assurez-vous d’utiliser les modèles `_amdgpu`. Sans optimisation, les performances sont médiocres. |
+
+## Résumé par cas d’usage
+
+| Cas d’usage | Configuration idéale |
+|-------------|----------------------|
+| Débutant / tests | Ryzen AI 300 avec 24 Go RAM (NPU) ou Radeon RX 7600 |
+| Création régulière (images) | Radeon RX 7800 XT / 9070 XT + 32 Go RAM |
+| Génération vidéo | Radeon RX 9070 XT (16 Go VRAM) ou Ryzen AI Max+ 395 |
+| Portable toujours actif | Ryzen AI 300 series (faible consommation) |
+| Workstation professionnelle | Ryzen AI Max+ 395 (64 Go RAM) ou Radeon PRO |
+
+Si votre matériel n’est pas listé, testez Amuse en mode CPU (lent) ou avec le backend DirectML (s’il est compatible). Vous pouvez aussi consulter la communauté Discord pour des retours d’expérience.
+
+---
+
+**Des questions sur votre configuration spécifique ?** L’assistant IA Mintlify peut vous conseiller.

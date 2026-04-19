@@ -1,0 +1,111 @@
+---
+title: "Présentation de l’interface d’Amuse"
+description: "Découvrez les différents modes, onglets et outils pour créer vos images et vidéos"
+---
+
+# Présentation de l’interface d’Amuse
+
+Amuse propose deux modes principaux : le **Mode EZ** (simplifié) pour les débutants, et le **Mode Expert** pour les utilisateurs avancés. Ce guide vous promène dans l’interface pour que vous sachiez où trouver chaque fonction.
+
+## Mode EZ (recommandé pour commencer)
+
+Quand vous lancez Amuse, vous arrivez par défaut sur le **Mode EZ**. L’écran se divise en plusieurs zones :
+
+### 1. Zone de prompt
+
+Un grand champ de texte où vous écrivez la description de l’image ou de la vidéo souhaitée. Exemple : `un paysage de montagne au coucher du soleil`.
+
+### 2. Curseur de performance
+
+Un slider avec trois positions : **Fast** (rapide, qualité moindre), **Balanced** (équilibré), **Quality** (lent, meilleure qualité). Faites glisser pour choisir.
+
+### 3. Image Count
+
+Un sélecteur pour choisir le nombre d’images générées en une seule fois (1 à 8).
+
+### 4. Aspect Ratio
+
+Des boutons pour choisir le format : carré (1:1), paysage (16:9), portrait (9:16). Chaque format a des résolutions prédéfinies (ex: 512×512, 1024×1024).
+
+### 5. AMD XDNA Super Resolution
+
+Une case à cocher (visible uniquement si un NPU AMD est détecté). Cochez‑la pour upscaler l’image 2× après génération.
+
+### 6. Bouton Generate
+
+Le grand bouton vert qui lance la génération. En dessous, les images apparaissent au fur et à mesure.
+
+### 7. Barre latérale gauche
+
+Contient les onglets **Generate**, **AI Filters**, **Design**, **Settings** et le lien vers **Expert Mode** (en bas).
+
+## Mode Expert
+
+Cliquez sur **“Expert Mode”** en bas à gauche pour basculer. L’interface se transforme : un panneau avec plusieurs onglets apparaît.
+
+### Onglets principaux
+
+- **Text to Image** : génération classique à partir d’un texte (avec paramètres avancés : steps, CFG, sampler, seed, dimensions manuelles).
+- **Image to Image** : transformez une image existante en lui appliquant un prompt.
+- **Paint to Image** : redessinez une partie d’une image (inpainting).
+- **Upscaler** : agrandissez une image avec un modèle dédié.
+- **Feature Extractor** : extrayez des cartes de caractéristiques (canny, openpose) pour ControlNet.
+- **Video** : génération vidéo (text-to-video, video-to-video).
+
+### Model Manager
+
+Un onglet séparé (ou accessible via un bouton) qui liste tous les modèles installés. Vous pouvez y installer, supprimer ou configurer des modèles.
+
+### Paramètres (Settings)
+
+Accessible par l’icône en haut à droite ou via un onglet. Permet de :
+
+- Changer le répertoire par défaut des modèles.
+- Sélectionner le périphérique d’exécution (CPU, GPU, NPU).
+- Ajuster l’utilisation mémoire.
+- Voir les informations système.
+
+## Onglet AI Filters
+
+Depuis le Mode EZ, l’onglet **AI Filters** permet d’appliquer un style génératif à une photo existante. L’interface comporte :
+
+- Un bouton **Load Image** pour charger votre photo.
+- Un champ **Prompt** pour décrire le style (ex: “cyberpunk”, “peinture à l’huile”).
+- Deux curseurs : **Image Blend** (mélange entre l’original et le style) et **AI Assistant** (intensité de la transformation).
+- Des **presets** (Artistic Transform, Realistic Blend, etc.).
+- Un bouton **Generate** pour lancer la transformation.
+
+## Onglet Design
+
+Toujours depuis le Mode EZ, l’onglet **Design** permet de partir d’un croquis simple. Vous disposez d’outils de dessin (pinceau, gomme, formes) et d’un prompt. L’IA remplit les détails en suivant votre tracé. Un curseur **Overlay** montre l’influence de votre dessin.
+
+## Zone de résultats
+
+Quel que soit l’onglet, les images générées apparaissent en bas. Vous pouvez :
+
+- Cliquer sur une image pour l’agrandir.
+- La sauvegarder (bouton **Save**).
+- La supprimer (corbeille).
+- Regénérer des variantes (bouton **Regenerate**).
+
+## Barre de statut
+
+En bas à droite, un petit indicateur montre la progression et le temps restant. Un clic sur l’icône en forme de graphique ouvre une fenêtre avec des informations système (CPU, RAM, GPU, NPU).
+
+## Raccourcis clavier (certaines versions)
+
+- `Ctrl+Entrée` : lancer la génération.
+- `Ctrl+S` : sauvegarder l’image sélectionnée.
+- `Ctrl+Z` : annuler la dernière action (dans Design).
+
+## Conseils pour naviguer
+
+- **Débutant** : restez en Mode EZ, utilisez les onglets Generate et AI Filters.
+- **Pour expérimenter** : passez en Mode Expert pour changer de modèle ou régler steps/CFG.
+- **Pour créer une composition** : utilisez l’onglet Design avec un croquis.
+
+L’interface est pensée pour être intuitive, mais n’hésitez pas à cliquer partout – vous ne pouvez rien casser. Tous les paramètres sont réversibles.
+
+---
+
+**Encore perdu ?** L’assistant IA Mintlify peut vous guider pas à pas dans l’interface.

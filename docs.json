@@ -1,0 +1,59 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "STIX - Guides IA",
+  "colors": {
+    "primary": "#0D9373"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Accueil",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "group": "Guides IA",
+        "pages": [
+ "ia/notebooklm-extensions-mdx",
+          {
+            "group": "AMD Amuse",
+            "pages": [
+              "ia/Amd-Amuse/index",
+              {
+                "group": "Bien démarrer",
+                "pages": [
+                  "ia/Amd-Amuse/getting-started/installation",
+                  "ia/Amd-Amuse/getting-started/first-generation",
+                  "ia/Amd-Amuse/getting-started/interface-overview"
+                ]
+              },
+              {
+                "group": "Guides d'utilisation",
+                "pages": [
+                  "ia/Amd-Amuse/guides/prompt-engineering",
+                  "ia/Amd-Amuse/guides/image-generation",
+                  "ia/Amd-Amuse/guides/ai-filters",
+                  "ia/Amd-Amuse/guides/video-diffusion",
+                  "ia/Amd-Amuse/guides/advanced-mode"
+                ]
+              },
+              {
+                "group": "Ressources",
+                "pages": [
+                  "ia/Amd-Amuse/resources/hardware-compatibility",
+                  "ia/Amd-Amuse/resources/xdna-npu-architecture",
+                  "ia/Amd-Amuse/resources/amd-optimized-models",
+                  "ia/Amd-Amuse/resources/performance-benchmarks",
+                  "ia/Amd-Amuse/resources/faq"
+                ]
+              }
+            ]
+          },
+          "ia/memory-os-ia-2026"
+        ]
+      }
+    ]
+  }
+}
