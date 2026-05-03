@@ -14,6 +14,27 @@
         ]
       },
       {
+        "group": "Astuces pour débutants",
+        "pages": [
+          "comprendre-le-workflow-mintlify-git-hub-vercel",
+          "comment-utiliser-une-ia-sur-n-importe-quel-site-copilot-leo-etc",
+          "comment-modifier-une-page-mdx-simplement",
+          "comment-publier-une-mise-a-jour",
+          "comment-fonctionne-la-sidebar-mintlify",
+          "les-erreurs-les-plus-frequentes-des-debutants",
+          "comment-fonctionne-le-fichier-mintlify-json",
+          "comment-lire-une-documentation-technique",
+          "9-comment-organiser-ses-pages-pour-une-documentation-claire",
+          "10-comment-ajouter-une-nouvelle-page-dans-mintlify",
+          "11-comment-utiliser-les-blocs-mintlify-notes-warnings-tips",
+          "12-comment-ajouter-des-images-dans-une-page-mdx",
+          "13-comment-utiliser-les-liens-internes-et-externes",
+          "comment-tester-son-site-avant-publication",
+          "15-comment-corriger-une-erreur-de-deploiement-vercel",
+          "16-comment-garder-une-documentation-propre-et-coherente"
+        ]
+      },
+      {
         "group": "Guides IA",
         "pages": [
           "ia/notebooklm-extensions-mdx",
@@ -41,27 +62,6 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "group": "Astuces pour débutants",
-        "pages": [
-          "comprendre-le-workflow-mintlify-git-hub-vercel",
-          "comment-utiliser-une-ia-sur-n-importe-quel-site-copilot-leo-etc",
-          "comment-modifier-une-page-mdx-simplement",
-          "comment-publier-une-mise-a-jour",
-          "comment-fonctionne-la-sidebar-mintlify",
-          "les-erreurs-les-plus-frequentes-des-debutants",
-          "comment-fonctionne-le-fichier-mintlify-json",
-          "comment-lire-une-documentation-technique",
-          "9-comment-organiser-ses-pages-pour-une-documentation-claire",
-          "10-comment-ajouter-une-nouvelle-page-dans-mintlify",
-          "11-comment-utiliser-les-blocs-mintlify-notes-warnings-tips",
-          "12-comment-ajouter-des-images-dans-une-page-mdx",
-          "13-comment-utiliser-les-liens-internes-et-externes",
-          "comment-tester-son-site-avant-publication",
-          "15-comment-corriger-une-erreur-de-deploiement-vercel",
-          "16-comment-garder-une-documentation-propre-et-coherente"
         ]
       }
     ]
