@@ -1,0 +1,74 @@
+---
+title: "Comprendre le workflow Mintlify → GitHub → Vercel"
+---
+
+### Le fonctionnement moderne expliqué simplement
+
+## 🧩 Pourquoi ce workflow ?
+
+Mintlify génère ton site (MDX → HTML/JS), GitHub stocke ton code, Vercel compile et héberge automatiquement. Une fois compris, tout devient simple.
+
+## Workflow résumé
+
+Voici la version courte du workflow, reformulée pour éviter toute coupure :
+
+**Mintlify génère → GitHub stocke → Vercel déploie**
+
+- Mintlify = création
+- GitHub = stockage \+ déclencheur
+- Vercel = compilation \+ hébergement
+
+## 1. Mintlify : création
+
+Mintlify permet de créer des pages `.mdx`, organiser la sidebar et générer un projet complet.
+
+Le bouton **Publish to GitHub** envoie ton site dans un dépôt.
+
+Mintlify ne déploie pas : il génère seulement le code.
+
+## 2. GitHub : stockage et déclenchement
+
+GitHub stocke ton projet et déclenche les déploiements.
+
+À chaque push, il envoie un signal à Vercel indiquant que le code a changé.
+
+GitHub ne compile rien : il déclenche seulement.
+
+## 3. Vercel : compilation et hébergement
+
+Vercel récupère ton code, compile ton site (Next.js \+ MDX), génère les pages statiques et héberge automatiquement.
+
+Chaque push = mise à jour automatique.
+
+## Cycle d’une mise à jour
+
+1. Tu modifies une page `.mdx`
+2. Publish to GitHub
+3. GitHub reçoit
+4. GitHub déclenche Vercel
+5. Vercel compile
+6. Vercel met à jour
+7. Ton site est à jour
+
+Aucune configuration, aucun serveur, aucun FTP.
+
+## Pourquoi c’est idéal ?
+
+- gratuit
+- automatique
+- sans serveur
+- sans configuration
+- fiable
+- moderne
+
+Tu écris → GitHub → Vercel → en ligne.
+
+## Résumé
+
+\> Mintlify crée ton site, GitHub le stocke, Vercel le met en ligne automatiquement.
+
+## Sources
+
+- [https://mintlify.com/docs](https://mintlify.com/docs)
+- [https://docs.github.com](https://docs.github.com)
+- [https://vercel.com/docs](https://vercel.com/docs)

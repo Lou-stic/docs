@@ -1,0 +1,101 @@
+---
+title: "Comment publier une mise à jour"
+---
+
+# Comment publier une mise à jour
+
+### Comprendre comment Mintlify, GitHub et Vercel travaillent ensemble
+
+## Pourquoi publier une mise à jour ?
+
+Chaque fois que vous modifiez une page MDX, ajoutez une image, changez la sidebar ou mettez à jour votre documentation, ces modifications doivent être envoyées vers GitHub pour que votre site soit recompilé et mis à jour automatiquement par Vercel.
+
+Publier une mise à jour signifie simplement :  
+
+envoyer vos changements depuis Mintlify vers GitHub.
+
+## Le workflow général
+
+Voici comment fonctionne la mise à jour d’un site Mintlify :
+
+1. Vous modifiez une page dans Mintlify  
+
+2. Vous cliquez sur **Publish to GitHub**  
+
+3. GitHub reçoit les fichiers mis à jour  
+
+4. GitHub déclenche automatiquement Vercel  
+
+5. Vercel reconstruit votre site  
+
+6. Votre site est mis à jour en ligne
+
+Aucune manipulation technique n’est nécessaire : tout est automatisé.
+
+## Publier depuis Mintlify
+
+Dans l’éditeur Mintlify :
+
+- faites vos modifications  
+
+- vérifiez l’aperçu  
+
+- cliquez sur **Publish to GitHub**  
+
+- attendez quelques secondes  
+
+Mintlify vous confirme que la publication est envoyée à GitHub.
+
+## Ce qui se passe dans GitHub
+
+Une fois la publication envoyée :
+
+- GitHub reçoit les fichiers modifiés  
+
+- un commit est créé automatiquement  
+
+- GitHub déclenche un nouveau déploiement sur Vercel  
+
+Vous n’avez rien à faire dans GitHub, sauf si vous souhaitez vérifier l’historique des modifications.
+
+## Ce qui se passe dans Vercel
+
+Vercel reçoit le signal de GitHub et :
+
+- reconstruit votre site  
+
+- génère les pages statiques  
+
+- met à jour la version en ligne  
+
+Le processus dure généralement quelques secondes.
+
+## Comment vérifier que la mise à jour est en ligne ?
+
+Vous pouvez vérifier de trois façons :
+
+1. **Dans Vercel** :  
+
+   ouvrez votre projet et regardez le dernier déploiement.
+
+2. **Sur votre site** :  
+
+   rechargez la page modifiée (parfois un Ctrl\+F5 est utile).
+
+3. **Dans GitHub** :  
+
+   vérifiez que le commit automatique de Mintlify est bien présent.
+
+## Résumé
+
+Publier une mise à jour consiste à envoyer vos modifications vers GitHub.  
+
+GitHub déclenche automatiquement Vercel, qui reconstruit et met à jour votre site sans aucune action supplémentaire.
+
+## Pour aller plus loin
+
+- Documentation Mintlify : [https://mintlify.com/docs](https://mintlify.com/docs)  
+
+- Documentation GitHub : [https://docs.github.com](https://docs.github.com)  
+
+- Documentation Vercel : [https://vercel.com/docs](https://vercel.com/docs)

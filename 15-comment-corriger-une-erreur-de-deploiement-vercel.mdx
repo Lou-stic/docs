@@ -1,0 +1,101 @@
+---
+title: "15. Comment corriger une erreur de déploiement Vercel"
+---
+
+# Comment corriger une erreur de déploiement Vercel
+
+### Comprendre et résoudre les problèmes les plus fréquents
+
+## Pourquoi des erreurs de déploiement apparaissent ?
+
+Lorsqu’un site Mintlify est publié, Vercel reconstruit automatiquement le projet.  
+
+Si un fichier manque, si une page est mal référencée ou si la configuration est incorrecte, Vercel peut afficher une erreur de déploiement.
+
+Ces erreurs sont normales et faciles à corriger une fois qu’on comprend leur origine.
+
+## Les erreurs les plus fréquentes
+
+Voici les causes les plus courantes :
+
+### 1. Une page ajoutée mais non trouvée
+
+Cela arrive si :
+
+- le fichier `.mdx` n’existe pas  
+
+- le nom du fichier ne correspond pas au nom dans la sidebar  
+
+- le chemin est incorrect  
+
+### 2. Une image manquante
+
+Une image référencée mais absente du dossier `public/` provoque une erreur.
+
+### 3. Une erreur dans le fichier mintlify.json
+
+Une virgule manquante ou un mauvais format JSON peut bloquer tout le déploiement.
+
+### 4. Un lien interne vers une page inexistante
+
+Si vous créez un lien vers une page qui n’existe pas encore, Vercel peut échouer.
+
+### 5. Un fichier supprimé mais encore référencé
+
+Si vous supprimez une page sans mettre à jour la navigation, Vercel ne peut pas compiler.
+
+## Comment corriger une erreur rapidement ?
+
+Voici une méthode simple :
+
+1. ouvrez Vercel  
+
+2. cliquez sur le dernier déploiement  
+
+3. lisez le message d’erreur  
+
+4. repérez le fichier ou la ligne concernée  
+
+5. corrigez dans Mintlify ou GitHub  
+
+6. republiez  
+
+Dans 90 % des cas, l’erreur est liée à un fichier manquant ou mal référencé.
+
+## Conseils pour éviter les erreurs
+
+- vérifiez toujours que vos pages existent réellement  
+
+- gardez des noms de fichiers simples et sans espaces  
+
+- mettez à jour la sidebar après chaque modification  
+
+- vérifiez vos images avant de publier  
+
+- évitez de modifier le JSON sans attention  
+
+Une documentation propre réduit fortement les risques d’erreurs.
+
+## Erreurs à ne pas commettre
+
+- renommer un fichier sans mettre à jour la navigation  
+
+- supprimer une page sans vérifier les liens internes  
+
+- ajouter une image sans la publier vers GitHub  
+
+- modifier le JSON sans vérifier la syntaxe  
+
+Ces erreurs sont les plus courantes chez les débutants.
+
+## Résumé
+
+Les erreurs de déploiement Vercel sont souvent liées à des fichiers manquants, des chemins incorrects ou une navigation mal configurée.  
+
+En lisant le message d’erreur et en corrigeant la source du problème, le déploiement réussit rapidement.
+
+## Pour aller plus loin
+
+- Documentation Vercel : [https://vercel.com/docs](https://vercel.com/docs)  
+
+- Documentation Mintlify : [https://mintlify.com/docs](https://mintlify.com/docs)
